@@ -49,17 +49,17 @@
 
             <div id="event-buttons" class="flex justify-center space-x-4">
                 <button
-                    id="btn-battlepass17"
+                    id="btn-battlepass18"
                     class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-red-600 text-white shadow-lg"
-                    data-event="battlepass17">
-                    Battle Pass XVII
+                    data-event="battlepass18">
+                    Battle Pass XVIII
                 </button>
-                <button
+                <!--  <button
                     id="btn-battlepass15year"
                     class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700"
                     data-event="battlepass15year">
                     Marathon
-                </button>
+                </button> -->
             </div>
 
             <div id="server-buttons" class="flex justify-center space-x-2 text-sm text-gray-400">
@@ -292,10 +292,10 @@
                 mode: 'Battlepass',
                 totalPoint: 7500,
                 timespan:{
-                  ASIA: [new Date('2025/09/03 09:00:00 UTC+2'),new Date('2025/11/26 01:30:00 UTC+8')],
-                  CN: [new Date('2025/09/03 09:00:00 UTC+2'),new Date('2025/11/26 01:30:00 UTC+8')],
-                  US: [new Date('2025/09/03 09:00:00 UTC+2'),new Date('2025/11/26 01:30:00 UTC-7')],
-                  EU: [new Date('2025/09/03 09:00:00 UTC+2'),new Date('2025/11/26 01:30:00 UTC+2')],
+                  ASIA: [new Date('2025/09/02 07:00:00 UTC+8'),new Date('2025/11/25 02:00:00 UTC+8')],
+                  CN: [new Date('2025/09/02 15:00:00 UTC+8'),new Date('2025/11/25 02:00:00 UTC+8')],
+                  US: [new Date('2025/09/03 22:00:00 UTC-7'),new Date('2025/11/26 15:30:00 UTC-7')],
+                  EU: [new Date('2025/09/03 15:00:00 UTC+2'),new Date('2025/11/26 08:30:00 UTC+2')],
                 },
               },
               battlepass15year: {
@@ -496,7 +496,7 @@
                         dailyMissions = savedState.dailyMissions;
                         gamePoints = savedState.gamePoints;
                         
-                        if (savedState.activeEventId === 'battlepass17') {
+                        if (savedState.activeEventId === 'battlepass18') {
                             stage1Completed.checked = savedState.completedStages[0] || false;
                             stage2Completed.checked = savedState.completedStages[1] || false;
                             stage3Completed.checked = savedState.completedStages[2] || false;
@@ -521,7 +521,7 @@
                         dailyMissions,
                         gamePoints
                     };
-                    if (activeEventId === 'battlepass17') {
+                    if (activeEventId === 'battlepass18') {
                         stateToSave.completedStages = [stage1Completed.checked, stage2Completed.checked, stage3Completed.checked];
                         stateToSave.currentStagePoints = parseInt(currentStagePoints.value) || 0;
                     } else {
@@ -534,7 +534,7 @@
             };
             
             const showCorrectInputs = () => {
-                if (activeEventId === 'battlepass17') {
+                if (activeEventId === 'battlepass18') {
                     bpInputs.classList.remove('hidden');
                     marathonInputs.classList.add('hidden');
                     handleBattlepassCheckboxes();
@@ -580,7 +580,7 @@
                     const newEventId = e.target.dataset.event;
                     if (activeEventId !== newEventId) {
                         activeEventId = newEventId;
-                        if (newEventId === 'battlepass17') {
+                        if (newEventId === 'battlepass18') {
                             stage1Completed.checked = false;
                             stage2Completed.checked = false;
                             stage3Completed.checked = false;
