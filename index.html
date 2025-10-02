@@ -54,12 +54,12 @@
                     data-event="battlepass18">
                     Battle Pass XVIII
                 </button>
-                <!--  <button
-                    id="btn-battlepass15year"
+                  <button
+                    id="btn-battlepasswolfenstein"
                     class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700"
-                    data-event="battlepass15year">
+                    data-event="battlepasswolfenstein">
                     Marathon
-                </button> -->
+                </button>
             </div>
 
             <div id="server-buttons" class="flex justify-center space-x-2 text-sm text-gray-400">
@@ -309,6 +309,17 @@
                   EU: [new Date('2025/08/08 12:00:00 UTC+2'), new Date('2025/09/01 12:00:00 UTC+2')],
                 },
               },
+              battlepasswolfenstein:{
+                title: 'Special Wolfenstein',
+                mode: 'Marathon',
+                totalPoint: 2000,
+                timespan: {
+                  ASIA: [new Date('2025/10/02 05:30:00 UTC+8'),new Date('2025/10/13 05:30:00 UTC+8')],
+                  CN: [new Date('2025/10/02 02:30:00 UTC+8'),new Date('2025/10/13 02:30:00 UTC+8')],
+                  US: [new Date('2025/10/02 15:30:00 UTC-7'),new Date('2025/10/13 15:30:00 UTC-7')],
+                  EU: [new Date('2025/10/02 05:30:00 UTC+2'),new Date('2025/10/13 05:30:00 UTC+2')],
+                },
+              },
             };
 
             let activeEventId = 'battlepass18';
@@ -317,7 +328,7 @@
             let daysPerWeek = 7;
             let dailyMissions = 0;
             let gamePoints = 0;
-            let dailyAverage = 0;
+            let dailyAverage = 5;
             let gamesNeeded = 0;
 
             const eventTitleEl = document.getElementById('event-title');
