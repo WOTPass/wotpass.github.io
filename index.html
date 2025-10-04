@@ -252,6 +252,13 @@
 							<p>Total battles required to finish event: <span id="total-battles" class="text-red-400"></span></p>
 							<p>Total playtime to finish event: <span id="total-playtime" class="text-gray-300"></span></p>
 						</div>
+						<!-- 🟦 Optimized effort with daily missions -->
+						<div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+							<h4 class="text-blue-400 text-xl mb-2">Optimized effort (with daily missions)</h4>
+							<p>Adjusted total battles (missions included): <span id="adjusted-total-battles" class="text-red-400"></span></p>
+							<p>Adjusted total playtime: <span id="adjusted-total-playtime" class="text-gray-300"></span></p>
+							<p class="text-sm text-gray-400 mt-2">Assumes you complete daily missions worth <strong>70 points/day</strong> until the end of the event.</p>
+						</div>
 
 					</div>
 
@@ -505,6 +512,19 @@
 				const dailyPlaytimeRemainder = dailyPlaytimeMinutes % 60;
 
 				document.getElementById('daily-playtime').textContent = `${dailyPlaytimeHours}h ${dailyPlaytimeRemainder}min`;
+				
+				// Adjusted total effort assuming daily missions are completed
+				const remainingDays = Math.max(0, Math.floor((eventEnd - now) / (1000 * 60 * 60 * 24)));
+				const totalMissionPoints = remainingDays * 70;
+				const adjustedBattlePoints = Math.max(0, totalPoints - currentProgress - totalMissionPoints);
+				const adjustedTotalBattles = Math.ceil(adjustedBattlePoints / (gamePoints || 1));
+				const adjustedPlaytimeMinutes = adjustedTotalBattles * 7;
+				const adjustedPlaytimeHours = Math.floor(adjustedPlaytimeMinutes / 60);
+				const adjustedPlaytimeRemainder = adjustedPlaytimeMinutes % 60;
+
+				document.getElementById('adjusted-total-battles').textContent = adjustedTotalBattles;
+				document.getElementById('adjusted-total-playtime').textContent = `${adjustedPlaytimeHours}h ${adjustedPlaytimeRemainder}min`;
+
 
             };
 
