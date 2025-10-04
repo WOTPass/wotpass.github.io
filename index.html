@@ -472,14 +472,11 @@
                 pointsNeededFromBattlesEl.textContent = pointsNeededFromBattles;
                 gamesNeededEl.textContent = gamesNeeded;
 				// --- Calculate estimated daily playtime ---
-				const minutesPerBattle = 7; // average battle length
+				const minutesPerBattle = 7;
 				const totalMinutes = gamesNeeded * minutesPerBattle;
-				const remainingDays = Math.max(1, Math.floor((eventEnd - now) / (1000 * 60 * 60 * 24)));
-				const totalPlayingDays = Math.ceil(remainingDays * (daysPerWeek / 7));
-				const dailyPlaytimeMinutes = totalMinutes / totalPlayingDays;
-				const hours = Math.floor(dailyPlaytimeMinutes / 60);
-				const minutes = Math.round(dailyPlaytimeMinutes % 60);
-				document.getElementById('daily-playtime').textContent = `${hours}h ${minutes}min per day`;
+				const hours = Math.floor(totalMinutes / 60);
+				const minutes = totalMinutes % 60;
+				document.getElementById('daily-playtime').textContent = `${hours}h ${minutes}min — daily playtime required to reach your goal`;
             };
 
             const updateUI = () => {
