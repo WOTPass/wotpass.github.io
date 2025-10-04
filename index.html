@@ -238,7 +238,7 @@
                         <p>Points from missions: <span id="points-from-missions">0</span></p>
                         <p>Points needed from battles: <span id="points-needed-from-battles">0</span></p>
                         <p class="mt-2">Estimated battles needed: <span id="games-needed" class="text-red-400 text-lg">0</span></p>
-						<p>Estimated daily playtime (based on 7 min per battle): <span id="daily-playtime" class="text-amber-400 text-lg">0h 0min per day</span></p>
+						<p>Total playtime required per day (7 min per battle): <span id="total-playtime" class="text-amber-400 text-lg">0h 0min</span></p>
                     </div>
                 </div>
             </div>
@@ -471,14 +471,22 @@
                 dailyAverageEl.textContent = Math.ceil(dailyAverage);
                 pointsNeededFromBattlesEl.textContent = pointsNeededFromBattles;
                 gamesNeededEl.textContent = gamesNeeded;
-				// --- Calculate estimated daily playtime ---
-				const minutesPerBattle = 7; // average battle length
-				const totalMinutes = gamesNeeded * minutesPerBattle;
-				const totalPlayingDays = Math.max(1, Math.floor((eventEnd - now) / (1000 * 60 * 60 * 24)) * (daysPerWeek / 7));
-				const dailyPlaytimeMinutes = totalMinutes / totalPlayingDays;
-				const hours = Math.floor(dailyPlaytimeMinutes / 60);
-				const minutes = Math.round(dailyPlaytimeMinutes % 60);
-				document.getElementById('daily-playtime').textContent = `${hours}h ${minutes}min per day`;
+				// --- Corrected playtime calculations ---
+				const minutesPerBattle = 7; // average battle length in minutes
+				const dayMs = 1000 * 60 * 60 * 24;
+				const remainingDays = Math.max(0, Math.floor((eventEnd - now) / dayMs));
+				const totalPlayingDays = Math.max(1, remainingDays * (daysPerWeek / 7)); // days user will actually play
+				const battlesPerDay = gamesNeeded / totalPlayingDays;
+				// Total playtime required per day: ALL battles * 7min (user requested)
+				const totalDailyPlayMinutes = gamesNeeded * minutesPerBattle;
+				const totalDailyHours = Math.floor(totalDailyPlayMinutes / 60);
+				const totalDailyMinutesRem = Math.round(totalDailyPlayMinutes % 60);
+				// Total estimated playtime for the whole event: remainingDays * (battles per play day) * 7min
+				const totalEventMinutes = remainingDays * battlesPerDay * minutesPerBattle;
+				const totalEventHours = Math.floor(totalEventMinutes / 60);
+				const totalEventMinutesRem = Math.round(totalEventMinutes % 60);
+				document.getElementById('total-playtime').textContent = `${totalDailyHours}h ${totalDailyMinutesRem}min per day`;
+				document.getElementById('event-playtime').textContent = `${totalEventHours}h ${totalEventMinutesRem}min total until event ends`;
             };
 
             const updateUI = () => {
