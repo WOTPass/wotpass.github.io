@@ -474,7 +474,8 @@
 				// --- Calculate estimated daily playtime ---
 				const minutesPerBattle = 7; // average battle length
 				const totalMinutes = gamesNeeded * minutesPerBattle;
-				const totalPlayingDays = Math.max(1, Math.floor((eventEnd - now) / (1000 * 60 * 60 * 24)) * (daysPerWeek / 7));
+				const remainingDays = Math.max(1, Math.floor((eventEnd - now) / (1000 * 60 * 60 * 24)));
+				const totalPlayingDays = Math.ceil(remainingDays * (daysPerWeek / 7));
 				const dailyPlaytimeMinutes = totalMinutes / totalPlayingDays;
 				const hours = Math.floor(dailyPlaytimeMinutes / 60);
 				const minutes = Math.round(dailyPlaytimeMinutes % 60);
