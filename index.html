@@ -77,6 +77,9 @@
                     data-server="CN">CN</button>
             </div>
 
+			<p id="event-duration" class="text-sm text-gray-400 text-center mt-2"></p>
+
+
             <div class="bg-gray-800 p-6 rounded-xl shadow-inner border-2 border-gray-700">
                 <h2 id="event-title" class="text-xl font-bold text-center"></h2>
                 
@@ -525,6 +528,21 @@
 				document.getElementById('adjusted-total-battles').textContent = adjustedTotalBattles;
 				document.getElementById('adjusted-total-playtime').textContent = `${adjustedPlaytimeHours}h ${adjustedPlaytimeRemainder}min`;
 
+				//TIME
+				const formatDate = (date) => {
+					return date.toLocaleString('en-GB', {
+						weekday: 'short',
+						year: 'numeric',
+						month: 'short',
+						day: 'numeric',
+						hour: '2-digit',
+						minute: '2-digit',
+						timeZoneName: 'short'
+					});
+				};
+
+				document.getElementById('event-duration').textContent =
+					`Event duration for ${currentServer}: ${formatDate(eventStart)} → ${formatDate(eventEnd)}`;
 
             };
 
