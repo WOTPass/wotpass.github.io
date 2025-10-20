@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babylon: Forbidden Zone Calculator - WOT Event Tracker</title>
+    
+    <meta name="description" content="Track your progress in World of Tanks Babylon: Forbidden Zone event. Calculate daily points and keys needed to complete all stages.">
+    <meta name="keywords" content="World of Tanks, WOT, calculator, Babylon, Forbidden Zone, event, stages, keys, progress">
+    <meta property="og:title" content="Babylon: Forbidden Zone Calculator - WOT">
+    <meta property="og:description" content="Track your progress in World of Tanks Babylon: Forbidden Zone event. Calculate daily points and keys needed to complete all stages.">
+    <meta property="og:image" content="https://placehold.co/600x315/FF0000/FFFFFF?text=Babylon+Forbidden+Zone">
+    <meta property="og:url" content="https://wotpass.github.io/babylon.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Babylon: Forbidden Zone Calculator - WOT">
+    <meta name="twitter:description" content="Track your progress in World of Tanks Babylon: Forbidden Zone event. Calculate daily points and keys needed to complete all stages.">
+    <meta name="twitter:image" content="https://placehold.co/600x315/FF0000/FFFFFF?text=Babylon+Forbidden+Zone">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .stage-item {
+            transition: all 0.3s ease;
+        }
+        .stage-item.completed {
+            background-color: #10b981;
+            border-color: #059669;
+        }
+        .mission-done {
+            background-color: #3b82f6;
+            border-color: #2563eb;
+        }
+    </style>
+</head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RXPH09GH85"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RXPH09GH85');
+</script>
+<body class="bg-gray-900 text-gray-200">
+
+    <div id="app" class="min-h-screen bg-gray-900 text-gray-200 font-sans flex items-center justify-center p-4">
+        <div class="w-full max-w-4xl p-6 space-y-6 rounded-xl shadow-2xl bg-gray-900 border-2 border-red-700">
+            <div class="flex flex-col items-center space-y-2">
+                <h1 class="text-center text-4xl font-extrabold text-red-600">
+                    Babylon: Forbidden Zone Calculator
+                </h1>
+                <p class="text-center text-gray-400">
+                    Track your progress in World of Tanks Babylon event
+                </p>
+                
+                <div id="event-buttons" class="flex justify-center space-x-4">
+                    <a href="index.html">
+                    <button
+                        id="btn-battlepass18"
+                        class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-red-600 text-white shadow-lg"
+                        data-event="battlepass18">
+                        Battle Pass XVIII
+                    </button>
+                    </a>
+                    <a href="index.html">
+                    <button
+                        id="btn-battlepasswolfenstein"
+                        class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700"
+                        data-event="battlepasswolfenstein">
+                        Marathon - Wolfenstein
+                    </button>
+                    </a>
+    				        <div class="flex justify-center space-x-4 mt-4">
+                        <a href="babylon.html" class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700">
+                            Babylon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Server Selection -->
+            <div id="server-buttons" class="flex justify-center space-x-2 text-sm text-gray-400">
+                <button class="px-3 py-1 rounded-full font-bold transition-colors bg-red-600 text-white" data-server="EU">EU</button>
+                <button class="px-3 py-1 rounded-full font-bold transition-colors bg-gray-700 hover:bg-gray-600" data-server="US">US</button>
+                <button class="px-3 py-1 rounded-full font-bold transition-colors bg-gray-700 hover:bg-gray-600" data-server="ASIA">ASIA</button>
+                <button class="px-3 py-1 rounded-full font-bold transition-colors bg-gray-700 hover:bg-gray-600" data-server="CN">CN</button>
+            </div>
+
+            <p id="event-duration" class="text-sm text-gray-400 text-center mt-2"></p>
+
+            <div class="bg-gray-800 p-6 rounded-xl shadow-inner border-2 border-gray-700">
+                <h2 class="text-xl font-bold text-center mb-4">Stage Progress</h2>
+                
+                <div class="mb-4 p-3 bg-gray-700 rounded-lg text-sm">
+                    <p class="text-center text-yellow-300">💡 <strong>How to use:</strong></p>
+                    <p class="text-center">Click <span class="bg-red-600 px-2 py-1 rounded">"Mark Complete"</span> when you finish a stage</p>
+                    <p class="text-center">Click <span class="bg-blue-600 px-2 py-1 rounded">"Mission Available"</span> if you completed the mission to reduce key cost</p>
+                </div>
+
+                <!-- Stage Progress Summary -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-center">
+                    <div class="bg-gray-700 p-3 rounded-lg">
+                        <p class="text-sm">Total Keys Required</p>
+                        <h3 id="total-keys-required" class="text-2xl font-extrabold text-red-400">0</h3>
+                    </div>
+                    <div class="bg-gray-700 p-3 rounded-lg">
+                        <p class="text-sm">Your Current Keys</p>
+                        <h3 id="current-keys" class="text-2xl font-extrabold">0</h3>
+                    </div>
+                    <div class="bg-gray-700 p-3 rounded-lg">
+                        <p class="text-sm">Keys Remaining</p>
+                        <h3 id="keys-remaining" class="text-2xl font-extrabold text-green-400">0</h3>
+                    </div>
+                </div>
+
+                <!-- Stages Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-96 overflow-y-auto p-2">
+                    <!-- Stages will be dynamically generated here -->
+                </div>
+
+                <!-- Daily Calculations -->
+                <div class="mt-8 p-4 rounded-lg bg-gray-700">
+                    <h3 class="text-lg font-bold mb-4 text-center">Daily Calculations</h3>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm mb-2">Points from battles (average per battle):</label>
+                        <input
+                            type="number"
+                            id="game-points"
+                            min="1"
+                            value="5"
+                            class="w-full p-2 rounded-lg bg-gray-600 text-center"
+                        />
+                    </div>
+
+                    <div class="space-y-4 text-center">
+                        <!-- Daily Effort -->
+                        <div class="bg-gray-800 p-4 rounded-lg border border-gray-600">
+                            <h4 class="text-red-400 text-xl mb-2">Daily Effort Required</h4>
+                            <p>Daily points needed: <span id="daily-points-needed" class="font-bold text-red-400">0</span></p>
+                            <p>Daily battles required: <span id="games-needed" class="font-bold text-red-400">0</span></p>
+                            <p>Daily playtime (7 min/battle): <span id="daily-playtime" class="font-bold text-gray-300">0</span></p>
+                        </div>
+
+                        <!-- Total Effort -->
+                        <div class="bg-gray-800 p-4 rounded-lg border border-gray-600">
+                            <h4 class="text-green-400 text-xl mb-2">Total Effort to Finish</h4>
+                            <p>Total battles required: <span id="total-battles" class="font-bold text-red-400">0</span></p>
+                            <p>Total playtime: <span id="total-playtime" class="font-bold text-gray-300">0</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Remaining -->
+            <div class="p-4 rounded-lg bg-gray-800 border border-gray-700">
+                <div class="flex items-center space-x-2 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-4 h-4" fill="currentColor">
+                        <path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v32H0V112c0-26.5 21.5-48 48-48h48V32c0-17.7 14.3-32 32-32zm0 128H32V480c0 17.7 14.3 32 32 32H384c17.7 0 32-14.3 32-32V128H128zm96 64c17.7 0 32 14.3 32 32v96c0 17.7-14.3 32-32 32s-32-14.3-32-32V224c0-17.7 14.3-32 32-32zm-96 96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7 14.3 32 32 32s32-14.3 32-32V288z"/>
+                    </svg>
+                    <p id="time-remaining"></p>
+                </div>
+            </div>
+
+            <div class="p-4 rounded-lg bg-gray-800 border border-gray-700">
+                <div class="flex items-center space-x-2 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4" fill="currentColor">
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zm32 224a32 32 0 1 1 -64 0 32 32 0 1 1 64 0z"/>
+                    </svg>
+                    <p>Note: The data is for reference. Enter your own values for accurate calculations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const babylonStages = [
+                { id: 1, name: "Into the Anomaly", costNormal: 5, costWithMission: 5 },
+                { id: 2, name: "The signal", costNormal: 10, costWithMission: 10 },
+                { id: 3, name: "The Stiched", costNormal: 15, costWithMission: 15 },
+                { id: 4, name: "Ferryman's mystery", costNormal: 20, costWithMission: 20 },
+                { id: 5, name: "Blastwave", costNormal: 30, costWithMission: 30 },
+                { id: 6, name: "Point of no return", costNormal: 30, costWithMission: 30 },
+                { id: 7, name: "Special instructions", costNormal: 30, costWithMission: 30 },
+                { id: 8, name: "Byond the line", costNormal: 60, costWithMission: 30 },
+                { id: 9, name: "Anomaly's ghost", costNormal: 80, costWithMission: 40 },
+                { id: 10, name: "Dark Mirium", costNormal: 80, costWithMission: 40 },
+                { id: 11, name: "The Outpost", costNormal: 110, costWithMission: 50 },
+                { id: 12, name: "Dark Tower", costNormal: 110, costWithMission: 50 },
+                { id: 13, name: "The thorn", costNormal: 110, costWithMission: 50 },
+                { id: 14, name: "Echo message", costNormal: 130, costWithMission: 60 },
+                { id: 15, name: "The lost ones", costNormal: 130, costWithMission: 60 },
+                { id: 16, name: "Homeward", costNormal: 150, costWithMission: 70 },
+                { id: 17, name: "Operation Ishtar", costNormal: 0, costWithMission: 0 }
+            ];
+
+            const eventData = {
+                babylon: {
+                    title: 'Babylon: Forbidden Zone',
+                    mode: 'Babylon',
+                    totalPoint: 1500,
+                    timespan: {
+                        ASIA: [new Date('2025/10/15 22:00:00 UTC+8'), new Date('2025/11/01 22:00:00 UTC+8')],
+                        CN: [new Date('2025/10/15 19:00:00 UTC+8'), new Date('2025/11/01 19:00:00 UTC+8')],
+                        US: [new Date('2025/10/15 08:30:00 UTC-7'), new Date('2025/11/01 11:30:00 UTC-7')],
+                        EU: [new Date('2025/10/16 02:00:00 UTC+2'), new Date('2025/11/02 02:00:00 UTC+2')],
+                    },
+                }
+            };
+
+            let currentServer = 'EU';
+            let gamePoints = 5;
+            let babylonCompletedStages = Array(17).fill(false);
+            let babylonMissionCompleted = Array(17).fill(false);
+
+            const timeRemainingEl = document.getElementById('time-remaining');
+            const gamePointsInput = document.getElementById('game-points');
+            const gamesNeededEl = document.getElementById('games-needed');
+            const totalKeysRequiredEl = document.getElementById('total-keys-required');
+            const currentKeysEl = document.getElementById('current-keys');
+            const keysRemainingEl = document.getElementById('keys-remaining');
+            const dailyPointsNeededEl = document.getElementById('daily-points-needed');
+            const totalBattlesEl = document.getElementById('total-battles');
+            const totalPlaytimeEl = document.getElementById('total-playtime');
+            const dailyPlaytimeEl = document.getElementById('daily-playtime');
+            const serverButtons = document.getElementById('server-buttons');
+            const eventDurationEl = document.getElementById('event-duration');
+
+            const calculateBabylonProgress = () => {
+                let totalKeysRequired = 0;
+                let currentKeys = 0;
+                
+                babylonStages.forEach((stage, index) => {
+                    if (babylonCompletedStages[index]) {
+                        currentKeys += stage.costNormal;
+                    } else {
+                        const cost = babylonMissionCompleted[index] ? stage.costWithMission : stage.costNormal;
+                        totalKeysRequired += cost;
+                    }
+                });
+                
+                return { totalKeysRequired, currentKeys, keysRemaining: totalKeysRequired };
+            };
+
+            const renderBabylonStages = () => {
+                const container = document.querySelector('.grid');
+                container.innerHTML = '';
+                
+                babylonStages.forEach((stage, index) => {
+                    const isCompleted = babylonCompletedStages[index];
+                    const hasMission = babylonMissionCompleted[index];
+                    const cost = hasMission ? stage.costWithMission : stage.costNormal;
+                    const showMissionBtn = stage.costNormal !== stage.costWithMission;
+                    
+                    const stageElement = document.createElement('div');
+                    stageElement.className = `stage-item bg-gray-700 p-3 rounded-lg border-2 ${isCompleted ? 'completed' : 'border-gray-600'}`;
+                    stageElement.innerHTML = `
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-sm">${stage.id}. ${stage.name}</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded">${cost} keys</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="flex-1 py-1 text-xs bg-${isCompleted ? 'green' : 'red'}-600 hover:bg-${isCompleted ? 'green' : 'red'}-700 rounded transition-colors stage-complete-btn">
+                                ${isCompleted ? '✓ Completed' : 'Mark Complete'}
+                            </button>
+                            ${showMissionBtn ? `
+                                <button class="flex-1 py-1 text-xs bg-${hasMission ? 'blue' : 'gray'}-600 hover:bg-${hasMission ? 'blue' : 'gray'}-700 rounded transition-colors stage-mission-btn">
+                                    ${hasMission ? '✓ Mission Done' : 'Mission Available'}
+                                </button>
+                            ` : `
+                                <button class="flex-1 py-1 text-xs bg-gray-600 opacity-50 cursor-not-allowed rounded" disabled>
+                                    No Mission
+                                </button>
+                            `}
+                        </div>
+                    `;
+                    
+                    const completeBtn = stageElement.querySelector('.stage-complete-btn');
+                    const missionBtn = stageElement.querySelector('.stage-mission-btn');
+                    
+                    completeBtn.addEventListener('click', () => {
+                        babylonCompletedStages[index] = !babylonCompletedStages[index];
+                        renderBabylonStages();
+                        updateUI();
+                    });
+                    
+                    if (missionBtn) {
+                        missionBtn.addEventListener('click', () => {
+                            babylonMissionCompleted[index] = !babylonMissionCompleted[index];
+                            renderBabylonStages();
+                            updateUI();
+                        });
+                    }
+                    
+                    container.appendChild(stageElement);
+                });
+            };
+
+            const updateUI = () => {
+                gamePoints = parseInt(gamePointsInput.value) || 1;
+                
+                const currentEvent = eventData.babylon;
+                const now = new Date();
+                const eventStart = currentEvent.timespan[currentServer][0];
+                const eventEnd = currentEvent.timespan[currentServer][1];
+                const timeRemainingMs = eventEnd - now;
+
+                const { totalKeysRequired, currentKeys, keysRemaining } = calculateBabylonProgress();
+                
+                // Update key counters
+                totalKeysRequiredEl.textContent = totalKeysRequired;
+                currentKeysEl.textContent = currentKeys;
+                keysRemainingEl.textContent = keysRemaining;
+
+                // Time calculations
+                if (timeRemainingMs < 0) {
+                    timeRemainingEl.textContent = 'Event has ended!';
+                    dailyPointsNeededEl.textContent = '0';
+                    gamesNeededEl.textContent = '0';
+                    dailyPlaytimeEl.textContent = '0';
+                } else if (now < eventStart) {
+                    timeRemainingEl.textContent = 'Event has not started yet.';
+                    dailyPointsNeededEl.textContent = '0';
+                    gamesNeededEl.textContent = '0';
+                    dailyPlaytimeEl.textContent = '0';
+                } else {
+                    const remainingDays = Math.max(1, Math.floor(timeRemainingMs / (1000 * 60 * 60 * 24)));
+                    const remainingHours = Math.floor((timeRemainingMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const remainingMinutes = Math.floor((timeRemainingMs % (1000 * 60 * 60)) / (1000 * 60));
+                    
+                    timeRemainingEl.textContent = `${remainingDays} days, ${String(remainingHours).padStart(2, '0')}:${String(remainingMinutes).padStart(2, '0')} remaining`;
+
+                    // Daily calculations
+                    const dailyPointsNeeded = Math.ceil(keysRemaining / remainingDays);
+                    const dailyBattlesNeeded = Math.ceil(dailyPointsNeeded / gamePoints);
+                    const dailyPlaytimeMinutes = dailyBattlesNeeded * 7;
+                    const dailyPlaytimeHours = Math.floor(dailyPlaytimeMinutes / 60);
+                    const dailyPlaytimeRemainder = dailyPlaytimeMinutes % 60;
+
+                    dailyPointsNeededEl.textContent = dailyPointsNeeded;
+                    gamesNeededEl.textContent = dailyBattlesNeeded;
+                    dailyPlaytimeEl.textContent = `${dailyPlaytimeHours}h ${dailyPlaytimeRemainder}min`;
+                }
+
+                // Total calculations
+                const totalBattles = Math.ceil(keysRemaining / gamePoints);
+                const totalPlaytimeMinutes = totalBattles * 7;
+                const totalPlaytimeHours = Math.floor(totalPlaytimeMinutes / 60);
+                const totalPlaytimeRemainder = totalPlaytimeMinutes % 60;
+
+                totalBattlesEl.textContent = totalBattles;
+                totalPlaytimeEl.textContent = `${totalPlaytimeHours}h ${totalPlaytimeRemainder}min`;
+
+                // Event duration display
+                const formatDate = (date) => {
+                    return date.toLocaleString('en-GB', {
+                        weekday: 'short',
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                };
+
+                eventDurationEl.textContent = `Event duration for ${currentServer}: ${formatDate(eventStart)} → ${formatDate(eventEnd)}`;
+
+                saveState();
+            };
+
+            const loadState = () => {
+                try {
+                    const savedState = JSON.parse(localStorage.getItem('babylon_calculator_state'));
+                    if (savedState) {
+                        currentServer = savedState.currentServer || 'EU';
+                        gamePoints = savedState.gamePoints || 5;
+                        babylonCompletedStages = savedState.babylonCompletedStages || Array(17).fill(false);
+                        babylonMissionCompleted = savedState.babylonMissionCompleted || Array(17).fill(false);
+                    }
+                } catch (error) {
+                    console.error("Error loading state:", error);
+                }
+            };
+
+            const saveState = () => {
+                try {
+                    const stateToSave = {
+                        currentServer,
+                        gamePoints,
+                        babylonCompletedStages,
+                        babylonMissionCompleted
+                    };
+                    localStorage.setItem('babylon_calculator_state', JSON.stringify(stateToSave));
+                } catch (error) {
+                    console.error("Error saving state:", error);
+                }
+            };
+
+            const updateServerButtonStyles = (serverId) => {
+                serverButtons.querySelectorAll('button').forEach(btn => {
+                    if (btn.dataset.server === serverId) {
+                        btn.classList.remove('bg-gray-700', 'hover:bg-gray-600');
+                        btn.classList.add('bg-red-600', 'text-white');
+                    } else {
+                        btn.classList.remove('bg-red-600', 'text-white');
+                        btn.classList.add('bg-gray-700', 'hover:bg-gray-600');
+                    }
+                });
+            };
+
+            // Event Listeners
+            serverButtons.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const newServer = e.target.dataset.server;
+                    if (currentServer !== newServer) {
+                        currentServer = newServer;
+                        updateServerButtonStyles(currentServer);
+                        updateUI();
+                    }
+                });
+            });
+
+            gamePointsInput.addEventListener('input', updateUI);
+
+            // Initialize
+            loadState();
+            renderBabylonStages();
+            updateServerButtonStyles(currentServer);
+            gamePointsInput.value = gamePoints;
+            updateUI();
+
+            // Update every minute
+            setInterval(updateUI, 60000);
+        });
+    </script>
+</body>
+</html>
