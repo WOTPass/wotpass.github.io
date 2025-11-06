@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WOT Battle Pass Calculator</title>
+    <title>WOT Battle Pass Calculator and The Walking Dead event</title>
     
-    <meta name="description" content="Track your progress in World of Tanks Battle Pass and Marathon events. Calculate daily points and battles needed to reach your goal.">
-    <meta name="keywords" content="World of Tanks, WOT, calculator, Battle Pass, Marathon, points, progress, event, player, tanks">
+    <meta name="description" content="Track your progress in World of Tanks Battle Pass and The Walking Dead events. Calculate daily points and battles needed to reach your goal.">
+    <meta name="keywords" content="World of Tanks, WOT, calculator, Battle Pass, The Walking Dead, points, progress, event, player, tanks">
     <meta property="og:title" content="WOT Battle Pass Calculator">
-    <meta property="og:description" content="Track your progress in World of Tanks Battle Pass and Marathon events. Calculate daily points and battles needed to reach your goal.">
+    <meta property="og:description" content="Track your progress in World of Tanks Battle Pass and The Walking Dead events. Calculate daily points and battles needed to reach your goal.">
     <meta property="og:image" content="https://placehold.co/600x315/FF0000/FFFFFF?text=WOT+BATTLE+PASS+CALCULATOR">
     <meta property="og:url" content="https://wotpass.github.io">
     <meta property="og:type" content="website">
@@ -55,16 +55,16 @@
                     Battle Pass XVIII
                 </button>
                 <button
-                    id="btn-battlepasswolfenstein"
+                    id="btn-battlepasswd"
                     class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700"
-                    data-event="battlepasswolfenstein">
-                    Marathon - Wolfenstein
+                    data-event="battlepasswd">
+                    The Walking Dead
                 </button>
-				<div class="flex justify-center space-x-4 mt-4">
+				<!--<div class="flex justify-center space-x-4 mt-4">
                     <a href="babylon.html" class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700">
                         Babylon
                     </a>
-                </div>
+                </div>-->
             </div>
 
             <div id="server-buttons" class="flex justify-center space-x-2 text-sm text-gray-400">
@@ -254,7 +254,6 @@
 						</div>
 
 						<!-- 🟢 Total effort section -->
-						<!-- 🟢 Total effort section -->
 						<div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
 							<h4 class="text-green-400 text-xl mb-2">Total effort to finish event</h4>
 							<p>Total battles required to finish event: <span id="total-battles" class="text-red-400"></span></p>
@@ -353,6 +352,17 @@
                   EU: [new Date('2025/10/02 05:30:00 UTC+2'),new Date('2025/10/13 05:30:00 UTC+2')],
                 },
               },
+              battlepasswd: {
+                title: 'Battle Pass Special: The Walking Dead',
+                mode: 'Marathon',
+                totalPoint: 2000,
+                timespan: {
+                    ASIA: [new Date('2025/11/05 22:30:00 UTC+8'), new Date('2025/11/16 21:30:00 UTC+8')],
+                    CN: [new Date('2025/11/05 22:30:00 UTC+8'), new Date('2025/11/16 21:30:00 UTC+8')],
+                    US: [new Date('2025/11/06 10:30:00 UTC-7'), new Date('2025/11/17 09:30:00 UTC-7')],
+                    EU: [new Date('2025/11/06 04:30:00 UTC+2'), new Date('2025/11/17 03:30:00 UTC+2')],
+                },
+             },
             };
 
             let activeEventId = 'battlepass18';
@@ -732,3 +742,4 @@
     </script>
 </body>
 </html>
+
