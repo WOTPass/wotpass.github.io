@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WOT Battle Pass Calculator and RoboCop event</title>
     
-    <meta name="description" content="Track your progress in World of Tanks Battle Pass and RoboCop events. Calculate daily points and battles needed to reach your goal.">
+    <meta name="description" content="World of Tanks Battle Pass Season XIX calculator. Track daily progress and battles needed to finish Operation Borealis.">
     <meta name="keywords" content="World of Tanks, WOT, calculator, Battle Pass, RoboCop, points, progress, event, player, tanks">
     <meta property="og:title" content="WOT Battle Pass Calculator">
     <meta property="og:description" content="Track your progress in World of Tanks Battle Pass and RoboCop events. Calculate daily points and battles needed to reach your goal.">
@@ -49,17 +49,17 @@
 
             <div id="event-buttons" class="flex justify-center space-x-4">
                 <button
-                    id="btn-battlepass18"
+                    id="btn-battlepass19"
                     class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-red-600 text-white shadow-lg"
-                    data-event="battlepass18">
-                    Battle Pass XVIII
+                    data-event="battlepass19">
+                    Battle Pass XVIX
                 </button>
-                <button
+                <!--<button
                     id="btn-battlepassrobocop"
                     class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700"
                     data-event="battlepassrobocop">
                     RoboCop
-                </button>
+                </button>-->
 				<!--<div class="flex justify-center space-x-4 mt-4">
                     <a href="babylon.html" class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700">
                         Babylon
@@ -338,6 +338,17 @@
                   EU: [new Date('2025/09/03 15:00:00 UTC+2'),new Date('2025/11/26 08:30:00 UTC+2')],
                 },
               },
+			  battlepass19: {
+				title:'Battle Pass Season XIX Calculator',
+				mode: 'Battlepass',
+				totalPoint: 7500,
+				timespan:{
+				  ASIA: [new Date('2026/03/02 23:00:00 UTC+8'),new Date('2026/06/01 18:00:00 UTC+8')],
+				  CN: [new Date('2026/03/04 00:00:00 UTC+8'),new Date('2026/06/02 18:00:00 UTC+8')],
+				  US: [new Date('2026/03/03 13:00:00 UTC-7'),new Date('2026/06/02 07:30:00 UTC-7')],
+				  EU: [new Date('2026/03/04 06:30:00 UTC+1'),new Date('2026/06/03 00:30:00 UTC+2')],
+				},
+			  },
               battlepass15year: {
                 title: 'Anniversary Marathon Calculator',
                 mode: 'Marathon',
@@ -384,7 +395,7 @@
              },
             };
 
-            let activeEventId = 'battlepassrobocop';
+            let activeEventId = 'battlepass19';
             let currentServer = 'EU';
             let currentProgress = 0;
             let daysPerWeek = 7;
@@ -615,7 +626,7 @@
                         dailyMissions = savedState.dailyMissions;
                         gamePoints = savedState.gamePoints;
                         
-                        if (savedState.activeEventId === 'battlepass18') {
+                        if (savedState.activeEventId === 'battlepass19') {
                             stage1Completed.checked = savedState.completedStages[0] || false;
                             stage2Completed.checked = savedState.completedStages[1] || false;
                             stage3Completed.checked = savedState.completedStages[2] || false;
@@ -640,7 +651,7 @@
                         dailyMissions,
                         gamePoints
                     };
-                    if (activeEventId === 'battlepass18') {
+                    if (activeEventId === 'battlepass19') {
                         stateToSave.completedStages = [stage1Completed.checked, stage2Completed.checked, stage3Completed.checked];
                         stateToSave.currentStagePoints = parseInt(currentStagePoints.value) || 0;
                     } else {
@@ -653,7 +664,7 @@
             };
             
             const showCorrectInputs = () => {
-                if (activeEventId === 'battlepass18') {
+                if (activeEventId === 'battlepass19') {
                     bpInputs.classList.remove('hidden');
                     marathonInputs.classList.add('hidden');
                     handleBattlepassCheckboxes();
@@ -699,7 +710,7 @@
                     const newEventId = e.target.dataset.event;
                     if (activeEventId !== newEventId) {
                         activeEventId = newEventId;
-                        if (newEventId === 'battlepass18') {
+                        if (newEventId === 'battlepass19') {
                             stage1Completed.checked = false;
                             stage2Completed.checked = false;
                             stage3Completed.checked = false;
