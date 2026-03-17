@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WOT Battle Pass Calculator and RoboCop event</title>
+    <title>WOT Battle Pass Calculator and Mafia event</title>
     
     <meta name="description" content="World of Tanks Battle Pass Season XIX calculator. Track daily progress and battles needed to finish Operation Borealis.">
-    <meta name="keywords" content="World of Tanks, WOT, calculator, Battle Pass, RoboCop, points, progress, event, player, tanks">
+    <meta name="keywords" content="World of Tanks, WOT, calculator, Battle Pass, Mafia, points, progress, event, player, tanks">
     <meta property="og:title" content="WOT Battle Pass Calculator">
-    <meta property="og:description" content="Track your progress in World of Tanks Battle Pass and RoboCop events. Calculate daily points and battles needed to reach your goal.">
+    <meta property="og:description" content="Track your progress in World of Tanks Battle Pass and Mafia events. Calculate daily points and battles needed to reach your goal.">
     <meta property="og:image" content="https://placehold.co/600x315/FF0000/FFFFFF?text=WOT+BATTLE+PASS+CALCULATOR">
     <meta property="og:url" content="https://wotpass.github.io">
     <meta property="og:type" content="website">
@@ -54,12 +54,12 @@
                     data-event="battlepass19">
                     Battle Pass XIX
                 </button>
-                <!--<button
-                    id="btn-battlepassrobocop"
-                    class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700"
-                    data-event="battlepassrobocop">
-                    RoboCop
-                </button>-->
+				<button
+				    id="btn-battlepassmafia"
+				    class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700"
+				    data-event="battlepassmafia">
+				    Mafia
+				</button>
 				<!--<div class="flex justify-center space-x-4 mt-4">
                     <a href="babylon.html" class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700">
                         Babylon
@@ -393,6 +393,17 @@
                     EU: [new Date('2026/01/15 03:30:00 UTC+1'), new Date('2026/01/29 03:30:00 UTC+1')],
                 },
              },
+			 battlepassmafia: {
+			   title: 'Battle Pass Special: Mafia',
+			    mode: 'Marathon',
+			    totalPoint: 2000,
+			    timespan: {
+			        ASIA: [new Date('2026/03/18 22:30:00 UTC+8'), new Date('2026/03/28 21:30:00 UTC+8')],
+			        CN: [new Date('2026/03/18 19:30:00 UTC+8'), new Date('2026/03/28 18:30:00 UTC+8')],
+			        US: [new Date('2026/03/19 10:30:00 UTC-7'), new Date('2026/03/29 09:30:00 UTC-7')],
+			        EU: [new Date('2026/03/19 04:30:00 UTC+1'), new Date('2026/03/29 03:30:00 UTC+1')],
+			    },
+			},
             };
 
             let activeEventId = 'battlepass19';
