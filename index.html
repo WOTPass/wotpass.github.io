@@ -8,7 +8,7 @@
     <meta name="description" content="World of Tanks Battle Pass Season XX calculator. Track daily progress and battles needed to finish Operation Borealis.">
     <meta name="keywords" content="World of Tanks, WOT, calculator, Battle Pass, Mafia, points, progress, event, player, tanks">
     <meta property="og:title" content="WOT Battle Pass Calculator">
-    <meta property="og:description" content="Track your progress in World of Tanks Battle Pass and Mafia events. Calculate daily points and battles needed to reach your goal.">
+    <meta property="og:description" content="Track your progress in World of Tanks Battle Pass and Duke Nuke events. Calculate daily points and battles needed to reach your goal.">
     <meta property="og:image" content="https://placehold.co/600x315/FF0000/FFFFFF?text=WOT+BATTLE+PASS+CALCULATOR">
     <meta property="og:url" content="https://wotpass.github.io">
     <meta property="og:type" content="website">
@@ -55,9 +55,9 @@
                     Battle Pass XX
                 </button>
 				<button
-				    id="btn-battlepassmafia"
+				    id="btn-battlepassduke"
 				    class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700"
-				    data-event="battlepassmafia">
+				    data-event="battlepassduke">
 				    Mafia
 				</button>
 				<!--<div class="flex justify-center space-x-4 mt-4">
@@ -414,6 +414,17 @@
 			        US: [new Date('2026/03/19 10:30:00 UTC-7'), new Date('2026/03/29 09:30:00 UTC-7')],
 			        EU: [new Date('2026/03/19 04:30:00 UTC+1'), new Date('2026/03/29 03:30:00 UTC+1')],
 			    },
+			},
+			battlepassduke: {
+			   title: 'Battle Pass Special: Duke Nukem',
+			    mode: 'Marathon',
+			    totalPoint: 2000,
+			    timespan: {
+        			ASIA: [new Date('2026/06/10 22:30:00 UTC+8'), new Date('2026/06/28 16:00:00 UTC+8')],
+       				CN: [new Date('2026/06/10 19:30:00 UTC+8'), new Date('2026/06/28 16:00:00 UTC+8')],
+        			US: [new Date('2026/06/11 10:30:00 UTC-7'), new Date('2026/06/27 04:00:00 UTC-7')],
+        			EU: [new Date('2026/06/11 04:30:00 UTC+2'), new Date('2026/06/28 22:00:00 UTC+2')],
+    			},
 			},
             };
 
