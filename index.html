@@ -519,10 +519,23 @@
 
                 const progressPercentage = (currentProgress / totalPoints) * 100;
                 const totalDurationMs = eventEnd - eventStart;
-                const elapsedMs = now - eventStart;
-                const idealPoints = (totalPoints * elapsedMs) / totalDurationMs;
-                const targetProgressPercentage = (elapsedMs / totalDurationMs) * 100;
-                const progressStatus = progressPercentage - targetProgressPercentage;
+
+				let idealPoints = 0;
+				let targetProgressPercentage = 0;
+				
+				if (now <= eventStart) {
+				    idealPoints = 0;
+				    targetProgressPercentage = 0;
+				} else if (now >= eventEnd) {
+				    idealPoints = totalPoints;
+				    targetProgressPercentage = 100;
+				} else {
+				    const elapsedMs = now - eventStart;
+				    idealPoints = (totalPoints * elapsedMs) / totalDurationMs;
+				    targetProgressPercentage = (elapsedMs / totalDurationMs) * 100;
+				}
+				
+				const progressStatus = progressPercentage - targetProgressPercentage;
 
                 progressBarEl.style.width = `${Math.min(100, progressPercentage)}%`;
                 targetProgressBarEl.style.width = `${Math.min(100, targetProgressPercentage)}%`;
@@ -530,19 +543,23 @@
 
                 progressBarEl.className = `${progressPercentage >= 100 ? 'bg-green-500/70' : progressStatus > 0 ? 'bg-green-500/70' : 'bg-red-600'} h-full rounded-full transition-all duration-500 ease-out relative z-10`;
 
-                if (progressPercentage >= 100) {
-                    progressStatusEl.textContent = 'Congratulations! Goal achieved!';
-                    progressStatusEl.classList.remove('text-red-400');
-                    progressStatusEl.classList.add('text-green-400');
-                } else if (progressStatus > 0) {
-                    progressStatusEl.textContent = `You are ahead by ${progressStatus.toFixed(1)}%!`;
-                    progressStatusEl.classList.remove('text-red-400');
-                    progressStatusEl.classList.add('text-green-400');
-                } else {
-                    progressStatusEl.textContent = `You are behind by ${(progressStatus * -1).toFixed(1)}%.`;
-                    progressStatusEl.classList.remove('text-green-400');
-                    progressStatusEl.classList.add('text-red-400');
-                }
+                if (now < eventStart) {
+				    progressStatusEl.textContent = 'Event has not started yet.';
+				    progressStatusEl.classList.remove('text-red-400', 'text-green-400');
+				    progressStatusEl.classList.add('text-gray-400');
+				} else if (progressPercentage >= 100) {
+				    progressStatusEl.textContent = 'Congratulations! Goal achieved!';
+				    progressStatusEl.classList.remove('text-red-400');
+				    progressStatusEl.classList.add('text-green-400');
+				} else if (progressStatus > 0) {
+				    progressStatusEl.textContent = `You are ahead by ${progressStatus.toFixed(1)}%!`;
+				    progressStatusEl.classList.remove('text-red-400');
+				    progressStatusEl.classList.add('text-green-400');
+				} else {
+				    progressStatusEl.textContent = `You are behind by ${(-progressStatus).toFixed(1)}%.`;
+				    progressStatusEl.classList.remove('text-green-400');
+				    progressStatusEl.classList.add('text-red-400');
+				}
                 
                 if (currentEvent.mode === 'Battlepass') {
                     stageMarkersContainer.classList.remove('hidden');
