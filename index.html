@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WOT Battle Pass Calculator and Duke Nukem event</title>
-    
-    <meta name="description" content="World of Tanks Battle Pass Season XX calculator. Track daily progress and battles needed to finish Operation Borealis.">
-    <meta name="keywords" content="World of Tanks, WOT, calculator, Battle Pass, Mafia, points, progress, event, player, tanks">
+	<title>WOT Battle Pass Calculator – Far Cry Event</title>
+
+	<meta name="description" content="World of Tanks Battle Pass Season XX and Far Cry event calculator. Track your daily progress and battles needed to finish the event.">
+    <meta name="keywords" content="World of Tanks, WOT, calculator, Battle Pass, Far Cry, points, progress, event, player, tanks">
     <meta property="og:title" content="WOT Battle Pass Calculator">
-    <meta property="og:description" content="Track your progress in World of Tanks Battle Pass and Duke Nukem events. Calculate daily points and battles needed to reach your goal.">
+	<meta property="og:description" content="Track your progress in World of Tanks Battle Pass and Far Cry events. Calculate daily points and battles needed to reach your goal.">
     <meta property="og:image" content="https://placehold.co/600x315/FF0000/FFFFFF?text=WOT+BATTLE+PASS+CALCULATOR">
     <meta property="og:url" content="https://wotpass.github.io">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="WOT Battle Pass Calculator">
-    <meta name="twitter:description" content="Track your progress in World of Tanks Battle Pass and Marathon events. Calculate daily points and battles needed to reach your goal.">
+    <meta name="twitter:description" content="Track your progress in World of Tanks Battle Pass and Far Cry events. Calculate daily points and battles needed to reach your goal.">
     <meta name="twitter:image" content="https://placehold.co/600x315/FF0000/FFFFFF?text=WOT+BATTLE+PASS+CALCULATOR">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -55,10 +55,10 @@
                     Battle Pass XX
                 </button>
 				<button
-				    id="btn-battlepassduke"
+				    id="btn-battlepassfarcry"
 				    class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700"
-				    data-event="battlepassduke">
-				    Duke Nukem
+				    data-event="battlepassfarcry">
+				    Far Cry
 				</button>
 				<!--<div class="flex justify-center space-x-4 mt-4">
                     <a href="babylon.html" class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700">
@@ -426,6 +426,17 @@
         			EU: [new Date('2026/06/11 04:30:00 UTC+2'), new Date('2026/06/22 03:30:00 UTC+2')],
     			},
             },
+			battlepassfarcry: {
+			    title: 'Battle Pass Special: Far Cry',
+			    mode: 'Marathon',
+			    totalPoint: 2000,
+			    timespan: {
+					ASIA: [new Date('2026/07/15 21:30:00 UTC+8'), new Date('2026/07/26 21:30:00 UTC+8')],
+					CN:   [new Date('2026/07/15 18:30:00 UTC+8'), new Date('2026/07/26 18:30:00 UTC+8')],
+					US:   [new Date('2026/07/16 09:30:00 UTC-7'), new Date('2026/07/27 09:30:00 UTC-7')],
+			        EU:   [new Date('2026/07/16 03:30:00 UTC+2'), new Date('2026/07/27 03:30:00 UTC+2')],
+			    },
+			},
             };
 
             let activeEventId = 'battlepass20';
