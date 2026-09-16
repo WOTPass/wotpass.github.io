@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>WOT Battle Pass Calculator – Far Cry Event</title>
+	<title>WOT Battle Pass XXI Calculator</title>
 
-	<meta name="description" content="World of Tanks Battle Pass Season XX and Far Cry event calculator. Track your daily progress and battles needed to finish the event.">
+	<meta name="description" content="World of Tanks Battle Pass Season XXI and Far Cry event calculator. Track your daily progress and battles needed to finish the event.">
     <meta name="keywords" content="World of Tanks, WOT, calculator, Battle Pass, Far Cry, points, progress, event, player, tanks">
     <meta property="og:title" content="WOT Battle Pass Calculator">
 	<meta property="og:description" content="Track your progress in World of Tanks Battle Pass and Far Cry events. Calculate daily points and battles needed to reach your goal.">
@@ -49,10 +49,10 @@
 
             <div id="event-buttons" class="flex justify-center space-x-4">
                 <button
-                    id="btn-battlepass20"
+                    id="btn-battlepass21"
                     class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-red-600 text-white shadow-lg"
-                    data-event="battlepass20">
-                    Battle Pass XX
+                    data-event="battlepass21">
+                    Battle Pass XXI
                 </button>
 				<button
 				    id="btn-battlepassfarcry"
@@ -360,6 +360,16 @@
 				  CN: [new Date('2026/06/02 01:00:00 UTC+8'), new Date('2026/08/31 20:00:00 UTC+8')],
 				},
 			  },
+			  battlepass21: {
+			    title: 'Battle Pass Season XXI Calculator',
+			    mode: 'Battlepass',
+			    totalPoint: 7500,
+			    timespan: {
+			        EU: [new Date('2026/09/02 09:30:00 UTC+2'), new Date('2026/11/25 01:30:00 UTC+2')],
+			        US: [new Date('2026/09/01 07:00:00 UTC-7'), new Date('2026/11/24 02:30:00 UTC-7')],
+			        ASIA: [new Date('2026/09/01 07:00:00 UTC+8'), new Date('2026/11/24 02:00:00 UTC+8')],
+			        CN: [new Date('2026/09/01 07:00:00 UTC+8'), new Date('2026/11/24 02:00:00 UTC+8')],},
+			  },
               battlepass15year: {
                 title: 'Anniversary Marathon Calculator',
                 mode: 'Marathon',
@@ -439,7 +449,7 @@
 			},
             };
 
-            let activeEventId = 'battlepass20';
+            let activeEventId = 'battlepass21';
             let currentServer = 'EU';
             let currentProgress = 0;
             let daysPerWeek = 7;
@@ -687,7 +697,7 @@
                         dailyMissions = savedState.dailyMissions;
                         gamePoints = savedState.gamePoints;
                         
-                        if (savedState.activeEventId === 'battlepass20') {
+                        if (savedState.activeEventId === 'battlepass21') {
                             stage1Completed.checked = savedState.completedStages[0] || false;
                             stage2Completed.checked = savedState.completedStages[1] || false;
                             stage3Completed.checked = savedState.completedStages[2] || false;
@@ -712,7 +722,7 @@
                         dailyMissions,
                         gamePoints
                     };
-                    if (activeEventId === 'battlepass20') {
+                    if (activeEventId === 'battlepass21') {
                         stateToSave.completedStages = [stage1Completed.checked, stage2Completed.checked, stage3Completed.checked];
                         stateToSave.currentStagePoints = parseInt(currentStagePoints.value) || 0;
                     } else {
@@ -725,7 +735,7 @@
             };
             
             const showCorrectInputs = () => {
-                if (activeEventId === 'battlepass20') {
+                if (activeEventId === 'battlepass21') {
                     bpInputs.classList.remove('hidden');
                     marathonInputs.classList.add('hidden');
                     handleBattlepassCheckboxes();
@@ -771,7 +781,7 @@
                     const newEventId = e.target.dataset.event;
                     if (activeEventId !== newEventId) {
                         activeEventId = newEventId;
-                        if (newEventId === 'battlepass20') {
+                        if (newEventId === 'battlepass21') {
                             stage1Completed.checked = false;
                             stage2Completed.checked = false;
                             stage3Completed.checked = false;
