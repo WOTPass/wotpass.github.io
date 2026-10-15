@@ -498,38 +498,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (timeRemainingMs <= 0) {
             timeRemainingEl.textContent = 'Event has ended!';
-            dailyPointsNeededEl.textContent = '0';
-            gamesNeededEl.textContent = '0';
-            dailyPlaytimeEl.textContent = '0h 0min';
         } else if (now < eventStart) {
-            timeRemainingEl.textContent = 'Event has not started yet.';
-            dailyPointsNeededEl.textContent = '0';
-            gamesNeededEl.textContent = '0';
-            dailyPlaytimeEl.textContent = '0h 0min';
+            timeRemainingEl.textContent =
+                `Event starts: ${formatDate(eventStart)}`;
         } else {
-            const remainingDays = Math.max(
-                1,
-                Math.ceil(timeRemainingMs / 86400000)
-            );
-
             const totalMinutes = Math.floor(timeRemainingMs / 60000);
             const remainingDaysDisplay = Math.floor(totalMinutes / 1440);
             const remainingHours = Math.floor((totalMinutes % 1440) / 60);
             const remainingMinutes = totalMinutes % 60;
-
+        
             timeRemainingEl.textContent =
                 `${remainingDaysDisplay} days, ` +
                 `${String(remainingHours).padStart(2, '0')}:` +
                 `${String(remainingMinutes).padStart(2, '0')} remaining`;
-
-            const dailyKeysNeeded = Math.ceil(
-                keysRemaining / remainingDays
+        }
+        
+        if (timeRemainingMs <= 0) {
+            dailyPointsNeededEl.textContent = '0';
+            gamesNeededEl.textContent = '0';
+            dailyPlaytimeEl.textContent = '0h 0min';
+        } else {
+            const effortStart = Math.max(now.getTime(), eventStart.getTime());
+            const effortTimeMs = Math.max(0, eventEnd.getTime() - effortStart);
+        
+            const remainingDays = Math.max(
+                1,
+                Math.ceil(effortTimeMs / 86400000)
             );
-
-            const dailyBattlesNeeded = Math.ceil(
-                dailyKeysNeeded / gamePoints
-            );
-
+        
+            const dailyKeysNeeded = Math.ceil(keysRemaining / remainingDays);
+            const dailyBattlesNeeded = Math.ceil(dailyKeysNeeded / gamePoints);
+        
             dailyPointsNeededEl.textContent = dailyKeysNeeded;
             gamesNeededEl.textContent = dailyBattlesNeeded;
             dailyPlaytimeEl.textContent =
