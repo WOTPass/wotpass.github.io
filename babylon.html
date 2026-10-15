@@ -212,7 +212,7 @@
                         </p>
 
                         <p>
-                            Daily playtime (7 min/battle):
+                            Daily playtime (20 min/battle):
                             <span id="daily-playtime" class="font-bold text-gray-300">0h 0min</span>
                         </p>
                     </div>
@@ -532,13 +532,13 @@ document.addEventListener('DOMContentLoaded', () => {
             dailyPointsNeededEl.textContent = dailyKeysNeeded;
             gamesNeededEl.textContent = dailyBattlesNeeded;
             dailyPlaytimeEl.textContent =
-                formatDuration(dailyBattlesNeeded * 7);
+                formatDuration(dailyBattlesNeeded * 20);
         }
 
         const totalBattles = Math.ceil(keysRemaining / gamePoints);
 
         totalBattlesEl.textContent = totalBattles;
-        totalPlaytimeEl.textContent = formatDuration(totalBattles * 7);
+        totalPlaytimeEl.textContent = formatDuration(totalBattles * 20);
 
         eventDurationEl.textContent =
             `Event duration for ${currentServer}: ` +
