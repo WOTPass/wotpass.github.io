@@ -80,18 +80,20 @@
             </p>
 
             <!-- Event navigation -->
-            <div id="event-buttons" class="flex flex-wrap justify-center gap-3">
-                <a href="index.html"
-                   class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700">
-                    Battle Pass XVIII
-                </a>
-
-                <!--<a href="index.html"
-                   class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700">
-                    Marathon - Wolfenstein
-                </a>-->
-
-                <a href="babylon.html"
+            <div id="event-buttons" class="flex justify-center space-x-4">
+                <button
+                    id="btn-battlepass21"
+                    class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-red-600 text-white shadow-lg"
+                    data-event="battlepass21">
+                    Battle Pass XXI
+                </button>
+				<button
+				    id="btn-battlepassdoom"
+				    class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700"
+				    data-event="battlepassdoom">
+				    DOOM
+				</button>
+				<a href="babylon.html"
                    aria-current="page"
                    class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-red-600 text-white shadow-lg">
                     Babylon
