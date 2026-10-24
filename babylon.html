@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Babylon — Dark Tower Calculator - WOT Event Tracker</title>
-
     <meta name="description" content="Track your progress in the World of Tanks Babylon — Dark Tower event. Calculate keys, daily points and battles needed to complete all stages.">
     <meta name="keywords" content="World of Tanks, WOT, Babylon, Dark Tower, calculator, event, stages, keys, progress">
 
@@ -80,8 +79,8 @@
             </p>
 
             <!-- Event navigation -->
-            <div id="event-buttons" class="flex justify-center space-x-4">
-				<a href="index.html"
+            <div id="event-buttons" class="flex flex-wrap justify-center gap-4">
+                <a href="index.html"
                    class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700">
                     Battle Pass XXI
                 </a>
@@ -89,7 +88,7 @@
                    class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700">
                     Marathon - DOOM
                 </a>
-				<a href="babylon.html"
+                <a href="babylon.html"
                    aria-current="page"
                    class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-red-600 text-white shadow-lg">
                     Babylon
@@ -103,17 +102,14 @@
                     class="px-4 py-2 rounded-full font-bold transition-colors bg-red-600 text-white">
                 EU
             </button>
-
             <button type="button" data-server="US"
                     class="px-4 py-2 rounded-full font-bold transition-colors bg-gray-700 hover:bg-gray-600">
                 US
             </button>
-
             <button type="button" data-server="ASIA"
                     class="px-4 py-2 rounded-full font-bold transition-colors bg-gray-700 hover:bg-gray-600">
                 ASIA
             </button>
-
             <button type="button" data-server="CN"
                     class="px-4 py-2 rounded-full font-bold transition-colors bg-gray-700 hover:bg-gray-600">
                 CN
@@ -134,12 +130,10 @@
                 <p class="text-center text-yellow-300 mb-2">
                     💡 <strong>How to use:</strong>
                 </p>
-
                 <p class="text-center mb-1">
                     Click <span class="bg-red-600 px-2 py-1 rounded">Mark Complete</span>
                     when you finish a stage.
                 </p>
-
                 <p class="text-center">
                     Click <span class="bg-blue-600 px-2 py-1 rounded">Mission Available</span>
                     when you complete a mission to reduce the key cost.
@@ -147,7 +141,24 @@
             </div>
 
             <!-- Key summary -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-center">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 text-center">
+
+                <div class="bg-gray-700 p-3 rounded-lg">
+                    <label for="owned-keys" class="text-sm block mb-2">
+                        Keys Owned
+                    </label>
+                    <input
+                        type="number"
+                        id="owned-keys"
+                        min="0"
+                        max="100000"
+                        step="1"
+                        value="0"
+                        inputmode="numeric"
+                        class="w-full p-1 rounded-lg bg-gray-600 text-center text-white text-2xl font-extrabold"
+                    >
+                </div>
+
                 <div class="bg-gray-700 p-3 rounded-lg">
                     <p class="text-sm">Keys Required</p>
                     <h3 id="total-keys-required" class="text-2xl font-extrabold text-red-400">0</h3>
@@ -165,9 +176,7 @@
             </div>
 
             <!-- Stages -->
-            <div id="stages-container"
-                class="grid grid-cols-1 md:grid-cols-2 gap-3 p-2">
-            </div>
+            <div id="stages-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 p-2"></div>
 
             <!-- Daily calculations -->
             <div class="mt-8 p-4 rounded-lg bg-gray-700">
@@ -179,7 +188,6 @@
                     <label for="game-points" class="block text-sm mb-2">
                         Points from battles (average per battle):
                     </label>
-
                     <input
                         type="number"
                         id="game-points"
@@ -192,23 +200,19 @@
                 </div>
 
                 <div class="space-y-4 text-center">
-
                     <!-- Daily effort -->
                     <div class="bg-gray-800 p-4 rounded-lg border border-gray-600">
                         <h4 class="text-red-400 text-xl mb-2">
                             Daily Effort Required
                         </h4>
-
                         <p>
                             Daily keys needed:
                             <span id="daily-points-needed" class="font-bold text-red-400">0</span>
                         </p>
-
                         <p>
                             Daily battles required:
                             <span id="games-needed" class="font-bold text-red-400">0</span>
                         </p>
-
                         <p>
                             Daily playtime (20 min/battle):
                             <span id="daily-playtime" class="font-bold text-gray-300">0h 0min</span>
@@ -220,12 +224,10 @@
                         <h4 class="text-green-400 text-xl mb-2">
                             Total Effort to Finish
                         </h4>
-
                         <p>
                             Total battles required:
                             <span id="total-battles" class="font-bold text-red-400">0</span>
                         </p>
-
                         <p>
                             Total playtime:
                             <span id="total-playtime" class="font-bold text-gray-300">0h 0min</span>
@@ -245,7 +247,6 @@
                      aria-hidden="true">
                     <path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v32H0V112c0-26.5 21.5-48 48-48h48V32c0-17.7 14.3-32 32-32zm0 128H32V480c0 17.7 14.3 32 32 32H384c17.7 0 32-14.3 32-32V128H128zm96 64c13.3 0 24 10.7 24 24v96c0 13.3-10.7 24-24 24s-24-10.7-24-24V216c0-13.3 10.7-24 24-24zm-96 96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7 14.3 32 32 32s32-14.3 32-32V288z"/>
                 </svg>
-
                 <p id="time-remaining" aria-live="polite"></p>
             </div>
         </div>
@@ -260,7 +261,6 @@
                      aria-hidden="true">
                     <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zm32 224a32 32 0 1 1 -64 0 32 32 0 0 1 64 0z"/>
                 </svg>
-
                 <p>
                     Note: Calculations are estimates. Enter your own battle points
                     for more accurate results.
@@ -296,9 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventData = {
         title: 'Babylon — Dark Tower',
         totalPoint: 1080,
-
         // Event times are expressed with explicit UTC offsets.
-        // EU ends at 02:00 local time on November 2, 2026.
         timespan: {
             ASIA: [
                 new Date('2026-10-15T22:00:00+08:00'),
@@ -328,6 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const timeRemainingEl = document.getElementById('time-remaining');
     const gamePointsInput = document.getElementById('game-points');
+    const ownedKeysInput = document.getElementById('owned-keys');
     const gamesNeededEl = document.getElementById('games-needed');
     const totalKeysRequiredEl = document.getElementById('total-keys-required');
     const currentKeysEl = document.getElementById('current-keys');
@@ -340,9 +339,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventDurationEl = document.getElementById('event-duration');
     const stagesContainer = document.getElementById('stages-container');
 
+    function getOwnedKeys() {
+        const parsed = Number(ownedKeysInput.value);
+        if (ownedKeysInput.value.trim() === '' || !Number.isFinite(parsed)) {
+            return 0;
+        }
+        return Math.max(0, Math.min(100000, Math.floor(parsed)));
+    }
+
     function calculateProgress() {
         let keysSpent = 0;
-        let keysRemaining = 0;
+        let stageKeysRemaining = 0;
 
         babylonStages.forEach((stage, index) => {
             const cost = completedMissions[index]
@@ -352,14 +359,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (completedStages[index]) {
                 keysSpent += cost;
             } else {
-                keysRemaining += cost;
+                stageKeysRemaining += cost;
             }
         });
 
+        const ownedKeys = getOwnedKeys();
+
         return {
             keysSpent,
-            keysRemaining,
-            totalKeysRequired: keysSpent + keysRemaining
+            ownedKeys,
+            stageKeysRemaining,
+            keysRemaining: Math.max(0, stageKeysRemaining - ownedKeys),
+            totalKeysRequired: keysSpent + stageKeysRemaining
         };
     }
 
@@ -372,16 +383,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const cost = hasMission
                 ? stage.costWithMission
                 : stage.costNormal;
-            const hasMissionOption =
-                stage.costNormal !== stage.costWithMission;
+            const hasMissionOption = stage.costNormal !== stage.costWithMission;
 
             const stageElement = document.createElement('div');
-
             stageElement.className =
                 `stage-item bg-gray-700 p-3 rounded-lg border-2 ${
-                    isCompleted
-                        ? 'completed'
-                        : 'border-gray-600'
+                    isCompleted ? 'completed' : 'border-gray-600'
                 }`;
 
             const header = document.createElement('div');
@@ -408,17 +415,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         ? 'bg-green-600 hover:bg-green-700'
                         : 'bg-red-600 hover:bg-red-700'
                 } rounded transition-colors`;
-
-            completeButton.textContent = isCompleted
-                ? '✓ Completed'
-                : 'Mark Complete';
+            completeButton.textContent = isCompleted ? '✓ Completed' : 'Mark Complete';
+            completeButton.setAttribute('aria-pressed', String(isCompleted));
 
             completeButton.addEventListener('click', () => {
                 completedStages[index] = !completedStages[index];
                 renderStages();
                 updateUI();
             });
-
             buttons.appendChild(completeButton);
 
             if (hasMissionOption) {
@@ -430,17 +434,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             ? 'bg-blue-600 hover:bg-blue-700'
                             : 'bg-gray-600 hover:bg-gray-500'
                     } rounded transition-colors`;
-
-                missionButton.textContent = hasMission
-                    ? '✓ Mission Done'
-                    : 'Mission Available';
+                missionButton.textContent = hasMission ? '✓ Mission Done' : 'Mission Available';
+                missionButton.setAttribute('aria-pressed', String(hasMission));
 
                 missionButton.addEventListener('click', () => {
                     completedMissions[index] = !completedMissions[index];
                     renderStages();
                     updateUI();
                 });
-
                 buttons.appendChild(missionButton);
             } else {
                 const noMissionButton = document.createElement('button');
@@ -449,7 +450,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 noMissionButton.className =
                     'flex-1 py-1 text-xs bg-gray-600 opacity-50 cursor-not-allowed rounded';
                 noMissionButton.textContent = 'No Mission';
-
                 buttons.appendChild(noMissionButton);
             }
 
@@ -459,7 +459,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function formatDuration(minutes) {
-        return `${Math.floor(minutes / 60)}h ${minutes % 60}min`;
+        const safeMinutes = Math.max(0, Math.floor(minutes));
+        return `${Math.floor(safeMinutes / 60)}h ${safeMinutes % 60}min`;
     }
 
     function formatDate(date) {
@@ -477,7 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateUI() {
         const parsedPoints = Number.parseInt(gamePointsInput.value, 10);
         gamePoints = Number.isFinite(parsedPoints) && parsedPoints > 0
-            ? parsedPoints
+            ? Math.min(10000, parsedPoints)
             : 1;
 
         const now = new Date();
@@ -486,6 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const {
             keysSpent,
+            ownedKeys,
             keysRemaining,
             totalKeysRequired
         } = calculateProgress();
@@ -494,23 +496,28 @@ document.addEventListener('DOMContentLoaded', () => {
         currentKeysEl.textContent = keysSpent;
         keysRemainingEl.textContent = keysRemaining;
 
+        // Keep the user's input within the accepted range without rewriting
+        // the field while it is temporarily empty during editing.
+        if (ownedKeysInput.value.trim() !== '') {
+            ownedKeysInput.setCustomValidity('');
+        }
+
         if (timeRemainingMs <= 0) {
             timeRemainingEl.textContent = 'Event has ended!';
         } else if (now < eventStart) {
-            timeRemainingEl.textContent =
-                `Event starts: ${formatDate(eventStart)}`;
+            timeRemainingEl.textContent = `Event starts: ${formatDate(eventStart)}`;
         } else {
             const totalMinutes = Math.floor(timeRemainingMs / 60000);
             const remainingDaysDisplay = Math.floor(totalMinutes / 1440);
             const remainingHours = Math.floor((totalMinutes % 1440) / 60);
             const remainingMinutes = totalMinutes % 60;
-        
+
             timeRemainingEl.textContent =
                 `${remainingDaysDisplay} days, ` +
                 `${String(remainingHours).padStart(2, '0')}:` +
                 `${String(remainingMinutes).padStart(2, '0')} remaining`;
         }
-        
+
         if (timeRemainingMs <= 0) {
             dailyPointsNeededEl.textContent = '0';
             gamesNeededEl.textContent = '0';
@@ -518,23 +525,17 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             const effortStart = Math.max(now.getTime(), eventStart.getTime());
             const effortTimeMs = Math.max(0, eventEnd.getTime() - effortStart);
-        
-            const remainingDays = Math.max(
-                1,
-                Math.ceil(effortTimeMs / 86400000)
-            );
-        
+            const remainingDays = Math.max(1, Math.ceil(effortTimeMs / 86400000));
+
             const dailyKeysNeeded = Math.ceil(keysRemaining / remainingDays);
             const dailyBattlesNeeded = Math.ceil(dailyKeysNeeded / gamePoints);
-        
+
             dailyPointsNeededEl.textContent = dailyKeysNeeded;
             gamesNeededEl.textContent = dailyBattlesNeeded;
-            dailyPlaytimeEl.textContent =
-                formatDuration(dailyBattlesNeeded * 20);
+            dailyPlaytimeEl.textContent = formatDuration(dailyBattlesNeeded * 20);
         }
 
         const totalBattles = Math.ceil(keysRemaining / gamePoints);
-
         totalBattlesEl.textContent = totalBattles;
         totalPlaytimeEl.textContent = formatDuration(totalBattles * 20);
 
@@ -548,10 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadState() {
         try {
             const rawState = localStorage.getItem(STORAGE_KEY);
-
-            if (!rawState) {
-                return;
-            }
+            if (!rawState) return;
 
             const savedState = JSON.parse(rawState);
 
@@ -560,9 +558,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const savedPoints = Number.parseInt(savedState.gamePoints, 10);
-
             if (Number.isFinite(savedPoints) && savedPoints > 0) {
-                gamePoints = savedPoints;
+                gamePoints = Math.min(10000, savedPoints);
+            }
+
+            const savedOwnedKeys = Number(savedState.ownedKeys);
+            if (
+                savedState.ownedKeys !== undefined &&
+                Number.isFinite(savedOwnedKeys) &&
+                savedOwnedKeys >= 0
+            ) {
+                ownedKeysInput.value = Math.min(100000, Math.floor(savedOwnedKeys));
             }
 
             if (
@@ -588,6 +594,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem(STORAGE_KEY, JSON.stringify({
                 currentServer,
                 gamePoints,
+                ownedKeys: getOwnedKeys(),
                 completedStages,
                 completedMissions
             }));
@@ -616,6 +623,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     gamePointsInput.addEventListener('input', updateUI);
+    ownedKeysInput.addEventListener('input', updateUI);
 
     loadState();
     gamePointsInput.value = gamePoints;
