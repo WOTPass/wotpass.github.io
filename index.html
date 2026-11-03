@@ -792,10 +792,18 @@
             };
 
             loadState();
-            showCorrectInputs();
-            updateEventButtonStyles(activeEventId);
-            updateServerButtonStyles(currentServer);
-            updateUI();
+
+			const urlParams = new URLSearchParams(window.location.search);
+			const serverFromUrl = urlParams.get('server')?.toUpperCase();
+			
+			if (['EU', 'US', 'ASIA', 'CN'].includes(serverFromUrl)) {
+			    currentServer = serverFromUrl;
+			}
+			
+			showCorrectInputs();
+			updateEventButtonStyles(activeEventId);
+			updateServerButtonStyles(currentServer);
+			updateUI();
             setInterval(calculateAll, 1000);
             
             eventButtons.querySelectorAll('button').forEach(btn => {
