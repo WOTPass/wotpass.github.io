@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>WOT Battle Pass XXI Calculator</title>
 
-	<meta name="description" content="World of Tanks Battle Pass Season XXI and DOOM event calculator. Track your daily progress and battles needed to finish the event.">
-    <meta name="keywords" content="World of Tanks, WOT, calculator, Battle Pass, DOOM, points, progress, event, player, tanks">
+	<meta name="description" content="World of Tanks Battle Pass Season XXI and Dune event calculator. Track your daily progress and battles needed to finish the event.">
+    <meta name="keywords" content="World of Tanks, WOT, calculator, Battle Pass, Dune, points, progress, event, player, tanks">
     <meta property="og:title" content="WOT Battle Pass Calculator">
-	<meta property="og:description" content="Track your progress in World of Tanks Battle Pass and DOOM events. Calculate daily points and battles needed to reach your goal.">
+	<meta property="og:description" content="Track your progress in World of Tanks Battle Pass and Dune events. Calculate daily points and battles needed to reach your goal.">
     <meta property="og:image" content="https://placehold.co/600x315/FF0000/FFFFFF?text=WOT+BATTLE+PASS+CALCULATOR">
     <meta property="og:url" content="https://wotpass.github.io">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="WOT Battle Pass Calculator">
-    <meta name="twitter:description" content="Track your progress in World of Tanks Battle Pass and DOOM events. Calculate daily points and battles needed to reach your goal.">
+    <meta name="twitter:description" content="Track your progress in World of Tanks Battle Pass and Dune events. Calculate daily points and battles needed to reach your goal.">
     <meta name="twitter:image" content="https://placehold.co/600x315/FF0000/FFFFFF?text=WOT+BATTLE+PASS+CALCULATOR">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -55,10 +55,10 @@
                     Battle Pass XXI
                 </button>
 				<button
-				    id="btn-battlepassdoom"
-				    class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-red-700"
-				    data-event="battlepassdoom">
-				    DOOM
+				    id="btn-battlepassdune"
+				    class="px-4 py-2 font-bold rounded-lg transition-all duration-300 bg-gray-700 text-gray-300 hover:bg-yellow-700"
+				    data-event="battlepassdune">
+				    DUNE: PART THREE
 				</button>
 				<a href="babylon.html"
                    aria-current="page"
@@ -458,6 +458,17 @@
                     EU:   [new Date('2026/10/01 06:30:00 UTC+2'), new Date('2026/10/12 05:30:00 UTC+2')],
                 },
             },
+			battlepassdune: {
+			    title: 'Battle Pass Special: Dune: Part Three',
+			    mode: 'Marathon',
+			    totalPoint: 2000,
+			    timespan: {
+			        ASIA: [new Date('2026/11/04 22:30:00 UTC+8'), new Date('2026/11/15 21:30:00 UTC+8')],
+			        CN: [new Date('2026/11/04 19:30:00 UTC+8'), new Date('2026/11/15 18:30:00 UTC+8')],
+			        US: [new Date('2026/11/05 10:30:00 UTC-8'), new Date('2026/11/16 09:30:00 UTC-8')],
+			        EU: [new Date('2026/11/05 05:30:00 UTC+1'), new Date('2026/11/16 04:30:00 UTC+1')],
+			    },
+			},
             };
 
             let activeEventId = 'battlepass21';
