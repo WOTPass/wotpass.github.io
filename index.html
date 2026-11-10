@@ -82,7 +82,11 @@
                     data-server="CN">CN</button>
             </div>
 
-			<p id="event-duration" class="text-sm text-gray-400 text-center mt-2"></p>
+			<div class="mt-3 rounded-xl border border-red-800 bg-gray-800 px-4 py-3 text-center">
+                <p class="text-xs uppercase tracking-wider text-gray-400">Time left in this event</p>
+                <p id="time-remaining" class="mt-1 text-lg sm:text-xl font-extrabold text-red-400 tabular-nums">Calculating...</p>
+                <p id="event-duration" class="mt-1 text-xs text-gray-500"></p>
+            </div>
 
 
             <div class="bg-gray-800 p-6 rounded-xl shadow-inner border-2 border-gray-700">
@@ -103,8 +107,12 @@
                         </div>
                         <span id="progress-percentage" class="absolute inset-0 flex items-center justify-center font-bold text-sm z-30"></span>
                     </div>
-                    <div class="text-center">
-                        <p id="progress-status"></p>
+                    <div class="text-center mt-2">
+                        <p id="progress-status" class="font-semibold"></p>
+                    </div>
+                    <div class="mt-3 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-gray-400">
+                        <span class="inline-flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-sm bg-red-600"></span>Your current progress</span>
+                        <span class="inline-flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-sm bg-amber-400/50"></span>Expected progress by today</span>
                     </div>
                 </div>
 
@@ -170,17 +178,36 @@
 
                 <div class="grid w-full grid-cols-2 gap-4 text-center">
                     <div class="bg-gray-800 p-4 rounded-lg">
-                        <p class="text-sm">Your Level</p>
+                        <p class="text-sm text-gray-300">Your current level</p>
                         <h3 id="current-level" class="text-2xl font-extrabold"></h3>
                     </div>
                     <div class="bg-gray-800 p-4 rounded-lg">
-                        <p class="text-sm">Required level for today</p>
+                        <p class="text-sm text-gray-300">Target level by today</p>
                         <h3 id="target-level" class="text-2xl font-extrabold text-amber-400"></h3>
                     </div>
                 </div>
                 
+                <section class="w-full mt-6 rounded-xl border border-red-800 bg-gray-900 p-4 sm:p-5" aria-labelledby="plan-title">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                        <h3 id="plan-title" class="text-xl font-extrabold text-white">Your plan to complete the event</h3>
+                        <span id="plan-status" class="rounded-full bg-gray-700 px-3 py-1 text-xs font-bold text-gray-200">Calculating</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4">A quick summary of what you need to do from now until the event ends.</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div class="rounded-lg bg-gray-800 p-3"><p class="text-xs text-gray-400">Points remaining</p><p id="summary-remaining-points" class="mt-1 text-2xl font-extrabold text-white tabular-nums">—</p></div>
+                        <div class="rounded-lg bg-gray-800 p-3"><p class="text-xs text-gray-400">Playing days left</p><p id="summary-playing-days" class="mt-1 text-2xl font-extrabold text-white tabular-nums">—</p></div>
+                        <div class="rounded-lg bg-gray-800 p-3"><p class="text-xs text-gray-400">Points per playing day</p><p id="summary-daily-points" class="mt-1 text-2xl font-extrabold text-white tabular-nums">—</p></div>
+                        <div class="rounded-lg bg-gray-800 p-3"><p class="text-xs text-gray-400">Battles per playing day</p><p id="summary-daily-battles" class="mt-1 text-2xl font-extrabold text-red-400 tabular-nums">—</p></div>
+                    </div>
+                    <div class="mt-3 rounded-lg bg-gray-800 p-3 flex flex-wrap items-center justify-between gap-2">
+                        <div><p class="text-xs text-gray-400">Estimated playtime per playing day</p><p id="summary-daily-playtime" class="text-xl font-extrabold text-white">—</p></div>
+                        <p class="max-w-xs text-xs text-gray-500">Based on your average points per battle and 7 minutes per battle.</p>
+                    </div>
+                </section>
+
                 <div class="w-full p-4 rounded-lg bg-gray-700 mt-6">
-                    <h3 class="text-lg font-bold mb-2">Daily calculations</h3>
+                    <h3 class="text-lg font-bold mb-1">Your daily targets</h3>
+                    <p class="text-xs text-gray-400 mb-4">Set how often you play, how many missions you complete, and your average points per battle. The estimates update automatically.</p>
                     <div class="mb-4">
                         <label for="daily-average" class="block text-sm mb-1">
                             Daily average: <span id="daily-average" class="font-bold text-red-400 text-lg">0</span> points
@@ -190,7 +217,8 @@
                         <label for="days-per-week" class="block text-sm mb-1">
                             Playing days per week: <span id="days-per-week-value" class="font-bold">7</span>
                         </label>
-                        <p id="days-per-week-note" class="text-xs text-gray-400 mt-1"></p>
+                        <p class="text-xs text-gray-400 mt-1">How many days per week do you usually play? Full weeks use this setting; in the final partial week, available playing days cannot exceed the time left in the event.</p>
+                        <p id="days-per-week-note" class="text-xs text-amber-300 mt-1"></p>
                         <div class="relative w-full">
                             <input
                                 type="range"
@@ -215,6 +243,7 @@
                         <label for="daily-missions" class="block text-sm mb-1">
                             Daily missions: <span id="daily-missions-value" class="font-bold">0</span>
                         </label>
+                        <p class="text-xs text-gray-400 mb-1">Choose how many daily missions you expect to complete on each playing day (up to 70 points for all 4).</p>
                         <div class="relative w-full">
                             <input
                                 type="range"
@@ -234,7 +263,8 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label for="game-points" class="block text-sm mb-1">Points from battles (average):</label>
+                        <label for="game-points" class="block text-sm mb-1">Average points earned per battle:</label>
+                        <p class="text-xs text-gray-400 mb-2">Use your typical Battle Pass point result from recent battles. Decimal values are allowed.</p>
                         <input
                             type="number"
                             id="game-points"
@@ -248,7 +278,8 @@
 
 						<!-- 🔴 Daily effort section -->
 						<div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-							<h4 class="text-red-400 text-xl mb-2">Daily effort required</h4>
+							<h4 class="text-red-400 text-xl mb-1">What you need to do each playing day</h4>
+                            <p class="text-xs text-gray-400 mb-3 font-normal">Daily target split between mission points and points you still need to earn in battles.</p>
 							<p>Points from missions: <span id="points-from-missions">0</span></p>
 							<p>Points needed from battles: <span id="points-needed-from-battles">0</span></p>
 							<p class="mt-2">Daily battles required: <span id="games-needed" class="text-red-400 text-lg">0</span></p>
@@ -257,16 +288,18 @@
 
 						<!-- 🟢 Total effort section -->
 						<div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-							<h4 class="text-green-400 text-xl mb-2">Total effort to finish event</h4>
+							<h4 class="text-green-400 text-xl mb-1">Total effort without missions</h4>
+                            <p class="text-xs text-gray-400 mb-3 font-normal">A baseline estimate assuming you earn all remaining points from battles.</p>
 							<p>Total battles required to finish event: <span id="total-battles" class="text-red-400"></span></p>
 							<p>Total playtime to finish event: <span id="total-playtime" class="text-gray-300"></span></p>
 						</div>
 						<!-- 🟦 Optimized effort with daily missions -->
 						<div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-							<h4 class="text-blue-400 text-xl mb-2">Optimized effort (with daily missions)</h4>
+							<h4 class="text-blue-400 text-xl mb-1">Total effort with daily missions</h4>
+                            <p class="text-xs text-gray-400 mb-3 font-normal">Estimated battles after subtracting mission points earned on your expected playing days.</p>
 							<p>Adjusted total battles (missions included): <span id="adjusted-total-battles" class="text-red-400"></span></p>
 							<p>Adjusted total playtime: <span id="adjusted-total-playtime" class="text-gray-300"></span></p>
-							<p class="text-sm text-gray-400 mt-2">Estimates mission points using your selected daily missions and available playing days before the event ends. Playing days are capped by the whole days remaining (e.g. 5 days left means at most 5 playing days, even if you select 7 days/week).</p>
+							<p class="text-xs text-gray-400 mt-3 font-normal">Mission points are estimated for your available playing days. In a short final event window, selecting 6 or 7 days/week gives the same result when both allow you to play every remaining day.</p>
 						</div>
 
 					</div>
@@ -276,12 +309,19 @@
                 </div>
             </div>
 
-            <div class="p-4 rounded-lg bg-gray-800 border border-gray-700">
-                <div class="flex items-center space-x-2 text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-4 h-4" fill="currentColor"><path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v32H0V112c0-26.5 21.5-48 48-48h48V32c0-17.7 14.3-32 32-32zm0 128H32V480c0 17.7 14.3 32 32 32H384c17.7 0 32-14.3 32-32V128H128zm96 64c17.7 0 32 14.3 32 32v96c0 17.7-14.3 32-32 32s-32-14.3-32-32V224c0-17.7 14.3-32 32-32zm-96 96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7 14.3 32 32 32s32-14.3 32-32V288z"/></svg>
-                    <p id="time-remaining"></p>
+
+            <details class="rounded-xl border border-gray-700 bg-gray-800 p-4">
+                <summary class="cursor-pointer select-none font-bold text-gray-200">How are these numbers calculated?</summary>
+                <div class="mt-3 space-y-2 text-sm text-gray-400">
+                    <p><strong class="text-gray-200">Points remaining:</strong> event total minus your current progress.</p>
+                    <p><strong class="text-gray-200">Points per playing day:</strong> remaining points divided by estimated playing days before the event ends.</p>
+                    <p><strong class="text-gray-200">Daily battles:</strong> points still needed after daily missions, divided by your average points per battle and rounded up.</p>
+                    <p><strong class="text-gray-200">Total effort without missions:</strong> all remaining points divided by average points per battle.</p>
+                    <p><strong class="text-gray-200">Total effort with missions:</strong> remaining points minus estimated mission points, divided by average points per battle.</p>
+                    <p><strong class="text-gray-200">Playtime:</strong> estimated battles multiplied by 7 minutes. Queue times, garage time and breaks are not included.</p>
+                    <p class="text-xs text-gray-500 pt-1">These are estimates. The weekly setting applies to each full 7-day period; the final partial week is capped by the actual time remaining. Actual results depend on your battle performance and mission completion.</p>
                 </div>
-            </div>
+            </details>
 
             <div class="p-4 rounded-lg bg-gray-800 border border-gray-700">
                 <div class="flex items-center space-x-2 text-gray-400">
@@ -684,26 +724,18 @@
             const eventStarted = now >= eventStart;
             const eventEnded = now >= eventEnd;
             const remainingCalendarDays = Math.max(0, timeRemainingMs / DAY_MS);
-            // Count only complete calendar days for the daily-effort estimate.
-            // A short event window must cap available playing days: with 5 whole
-            // days left, selecting 5, 6 or 7 days/week always means 5 available
-            // playing days, never 6 or 7. For longer windows, count full 7-day
-            // blocks and then cap the final partial block.
-            const wholeRemainingDays = Math.floor(remainingCalendarDays);
-            // When fewer than 7 full days remain, the selected weekly frequency
-            // cannot exceed the actual number of days left in this event.
-            const effectiveDaysPerWeek = Math.min(daysPerWeek, wholeRemainingDays);
-            const fullRemainingWeeks = Math.floor(wholeRemainingDays / 7);
-            const remainingDaysInPartialWeek = wholeRemainingDays % 7;
-            const remainingPlayingDays = wholeRemainingDays < 7
-                ? effectiveDaysPerWeek
-                : (fullRemainingWeeks * daysPerWeek) +
-                  Math.min(remainingDaysInPartialWeek, daysPerWeek);
+            // Estimate how many playing days fit into the remaining event window.
+            // Full 7-day periods use the selected weekly frequency. In the final
+            // partial week, the number of playing days is capped by the actual
+            // time remaining. Therefore, when fewer than 6 days remain, settings
+            // 6 and 7 both allow playing every remaining day and give the same result.
+            const fullWeeksRemaining = Math.floor(remainingCalendarDays / 7);
+            const partialWeekDays = remainingCalendarDays - fullWeeksRemaining * 7;
+            const remainingPlayingDays = fullWeeksRemaining * daysPerWeek
+                + Math.min(daysPerWeek, partialWeekDays);
             const daysPerWeekNote = $('days-per-week-note');
             if (daysPerWeekNote) {
-                daysPerWeekNote.textContent = wholeRemainingDays < 7 && daysPerWeek > wholeRemainingDays
-                    ? `Only ${wholeRemainingDays} full days remain, so calculations are capped at ${effectiveDaysPerWeek} playing days.`
-                    : `Calculations use up to ${daysPerWeek} playing days per 7-day period.`;
+                daysPerWeekNote.textContent = `Estimated from ${remainingCalendarDays.toFixed(2)} calendar days remaining. Your ${daysPerWeek} days/week setting is applied to full weeks; the final partial week is capped at the actual time left.`;
             }
             const remainingPoints = Math.max(0, totalPoints - currentProgress);
 
@@ -752,10 +784,10 @@
                 progressStatusEl.textContent = 'Event completed!';
                 progressStatusEl.classList.add('text-green-400');
             } else if (progressStatus >= 0) {
-                progressStatusEl.textContent = `You are ahead by ${progressStatus.toFixed(1)}%!`;
+                progressStatusEl.textContent = `You are ${progressStatus.toFixed(1)} percentage points ahead of schedule.`;
                 progressStatusEl.classList.add('text-green-400');
             } else {
-                progressStatusEl.textContent = `You are behind by ${(-progressStatus).toFixed(1)}%.`;
+                progressStatusEl.textContent = `You are ${(-progressStatus).toFixed(1)} percentage points behind schedule.`;
                 progressStatusEl.classList.add('text-red-400');
             }
 
@@ -795,6 +827,30 @@
             pointsNeededFromBattlesEl.textContent = pointsNeededFromBattles;
             gamesNeededEl.textContent = validGamePoints ? gamesNeeded : 'Enter points > 0';
             setText('daily-playtime', validGamePoints ? formatDuration(gamesNeeded * MINUTES_PER_BATTLE) : '—');
+
+            // Plain-language summary for users who only need the actionable daily target.
+            setText('summary-remaining-points', remainingPoints.toLocaleString());
+            setText('summary-playing-days', eventEnded ? '0' : (!eventStarted ? 'Not started' : remainingPlayingDays.toFixed(2))); 
+            setText('summary-daily-points', eventStarted && !eventEnded ? Math.ceil(dailyAverage).toLocaleString() : '—');
+            setText('summary-daily-battles', validGamePoints && eventStarted && !eventEnded ? gamesNeeded.toLocaleString() : '—');
+            setText('summary-daily-playtime', validGamePoints && eventStarted && !eventEnded ? formatDuration(gamesNeeded * MINUTES_PER_BATTLE) : '—');
+            const planStatus = $('plan-status');
+            if (eventEnded) {
+                planStatus.textContent = 'Event ended';
+                planStatus.className = 'rounded-full bg-gray-700 px-3 py-1 text-xs font-bold text-gray-300';
+            } else if (!eventStarted) {
+                planStatus.textContent = 'Not started';
+                planStatus.className = 'rounded-full bg-gray-700 px-3 py-1 text-xs font-bold text-gray-300';
+            } else if (remainingPoints === 0) {
+                planStatus.textContent = 'Completed';
+                planStatus.className = 'rounded-full bg-green-900 px-3 py-1 text-xs font-bold text-green-300';
+            } else if (!validGamePoints) {
+                planStatus.textContent = 'Enter battle points';
+                planStatus.className = 'rounded-full bg-amber-900 px-3 py-1 text-xs font-bold text-amber-200';
+            } else {
+                planStatus.textContent = remainingPlayingDays > 0 ? 'Your daily target' : 'No playing days left';
+                planStatus.className = 'rounded-full bg-red-900 px-3 py-1 text-xs font-bold text-red-200';
+            }
 
             const totalBattles = validGamePoints ? Math.ceil(remainingPoints / gamePoints) : null;
             setText('total-battles', validGamePoints ? totalBattles : '—');
